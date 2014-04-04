@@ -3,7 +3,6 @@ package controllers;
 import java.util.List;
 
 import models.User;
-import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -38,19 +37,18 @@ public class UserController extends Controller {
 	/**
 	 * ユーザを新規作成する
 	 * 
-	 * @param email
-	 * @param password
-	 * @param name
 	 * @return
 	 */
 	public static Result create() {
 		
-		// TODO
-		final Form<User> userForm = Form.form(User.class);
-		final User user = userForm.bindFromRequest().get();
+		final Form<User> userForm = Form.form(User.class).bindFromRequest();
+		if (userForm.hasErrors()) {
+			return badRequest(userForm.errorsAsJson());
+		}
+		final User user = userForm.get();
 		user.save();
-		
-		return ok(Json.toJson(user));
+		return created(Json.toJson(user));
+//		return ok(Json.toJson(user));
 	}
 	
 
