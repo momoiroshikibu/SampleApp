@@ -4,17 +4,45 @@
 
 <h3>ユーザ一覧</h3>
 <a href="users">ユーザ一覧</a>
-
+<!-- 
 <h3>ユーザを新規作成</h3>
 
 <form method="post" action="users">
-	Email
-	<input type="text" name="email" />
-	Password
-	<input type="text" name="password" />
-	Name
-	<input type="text" name="name" />
-	<button>作成</button>
+    Email
+    <input type="text" name="email" />
+    Password
+    <input type="text" name="password" />
+    Name
+    <input type="text" name="name" />
+    <button>作成</button>
+</form>
+ -->
+ 
+<h3>複数ユーザを一括登録</h3>
+<form id="users_form" method="post" action="users">
+    <table>
+        <thead>
+            <tr>
+               <td>名前</td>
+                  <td>メールアドレス</td>
+                  <td>パスワード</td>
+              </tr>
+          </thead>
+          <tbody>
+              <tr class="user">
+                  <td><input type="text" name="name" /></td>
+                  <td><input type="text" name="email" /></td>
+                  <td><input type="text" name="password" /></td>
+              </tr>
+              <tr class="user">
+                  <td><input type="text" name="name" /></td>
+                  <td><input type="text" name="email" /></td>
+                  <td><input type="text" name="password" /></td>
+              </tr>
+              
+        </tbody>
+    </table>
+  <button>一括登録する</button>
 </form>
 
 <h3>
@@ -24,3 +52,6 @@
 <!--     @play20.welcome(message, style = "Java") -->
 
 }
+
+<script src="@routes.Assets.at("javascripts/user.js")" type="text/javascript"></script>
+

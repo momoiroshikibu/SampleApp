@@ -1,12 +1,17 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import models.User;
+import models.UserForm;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.BodyParser;
 
 public class UserController extends Controller {
 
@@ -39,16 +44,25 @@ public class UserController extends Controller {
 	 * 
 	 * @return
 	 */
+	@BodyParser.Of(BodyParser.Json.class)
 	public static Result create() {
 		
-		final Form<User> userForm = Form.form(User.class).bindFromRequest();
-		if (userForm.hasErrors()) {
-			return badRequest(userForm.errorsAsJson());
+		// TODO form.hasErrors()が必ずtrueとなる
+		// => 個々のUserモデルのバリデーションが動作していない？
+		final Form<UserForm> form = Form.form(UserForm.class).bindFromRequest();
+		if (form.hasErrors()) {
+			return badRequest(form.errorsAsJson());
 		}
-		final User user = userForm.get();
-		user.save();
-		return created(Json.toJson(user));
-//		return ok(Json.toJson(user));
+		
+		// ユーザを登録
+		final UserForm userForm = form.get();
+		final List<User> userList = userForm.users;
+		final List<User> savedUserList = new ArrayList<User>(); 
+		for (final User user : userList) {
+			user.save();
+			savedUserList.add(user);
+		}
+		return ok(Json.toJson(savedUserList));
 	}
 	
 
