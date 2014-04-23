@@ -3,8 +3,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import models.User;
 import models.UserForm;
 import play.data.Form;
@@ -47,8 +45,7 @@ public class UserController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result create() {
 		
-		// TODO form.hasErrors()が必ずtrueとなる
-		// => 個々のUserモデルのバリデーションが動作していない？
+		// UserForm.usersには@Validが設定されているため、バリデーションが有効となる
 		final Form<UserForm> form = Form.form(UserForm.class).bindFromRequest();
 		if (form.hasErrors()) {
 			return badRequest(form.errorsAsJson());
