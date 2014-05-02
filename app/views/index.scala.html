@@ -1,4 +1,5 @@
-@(message: String)
+@(userForm: Form[User], animalList: List[String], colorList: List[String])
+@import views.html.helper._
 
 @main("Welcome to Play") {
 
@@ -49,7 +50,15 @@
 
 </h3>
 
-<!--     @play20.welcome(message, style = "Java") -->
+<!-- Radio -->
+<div id="radio_wrapper">
+@inputRadioGroup(userForm("animal"), options(animalList))
+</div>
+<button type="button" id="change_radio_button">Change</button>
+<!--  Template -->
+<script type="text/template" id="animal_radio_template">
+@inputRadioGroup(userForm("color"), options(colorList))
+</script>
 
 }
 

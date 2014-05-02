@@ -1,5 +1,13 @@
 ;(function(window, $, undefined) {
     "use strict";
+    
+    // Changeボタンの押下: Radioの項目を変更
+    $("#change_radio_button").on('click', function() {
+        var templateHtml = $('#animal_radio_template').html();
+        $('#radio_wrapper').html(templateHtml);
+    });
+    
+    
 
     // FormのSubmitイベントが発生した時の動作を定義
     $('#users_form').on('submit', function(e) {
